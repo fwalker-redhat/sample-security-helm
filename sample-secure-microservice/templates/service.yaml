@@ -7,9 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - name: 8080-tcp
       protocol: TCP
-      name: http
+      port: 8080
+      targetPort: 8080
+    - name: 8443-tcp
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
   selector:
     {{- include "sample-secure-microservice.selectorLabels" . | nindent 4 }}

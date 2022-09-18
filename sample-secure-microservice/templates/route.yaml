@@ -1,0 +1,19 @@
+{{- if .Values.route.enabled }}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ include "sample-secure-microservice.fullname" . }}
+  labels:
+    {{- include "sample-secure-microservice.labels" . | nindent 4 }}
+spec:
+  to:
+    kind: Service
+    name: {{ include "sample-secure-microservice.fullname" . }}
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+{{ end }}

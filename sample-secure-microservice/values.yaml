@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: quay.io/fmwalker/tatra-sample-quarkus-sso
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -41,7 +41,7 @@ service:
   port: 8080
 
 route:
-  enabled: false
+  enabled: true
   annotations: {}
   tls: []
   #  - secretName: chart-example-tls
