@@ -41,7 +41,7 @@ service:
   port: 8080
 
 route:
-  enabled: true
+  enabled: false
   annotations: {}
   tls: []
   #  - secretName: chart-example-tls
