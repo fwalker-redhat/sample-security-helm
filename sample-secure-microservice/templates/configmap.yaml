@@ -1,0 +1,54 @@
+{{- if .Values.extConfig.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sample-secure-microservice.fullname" . }}
+  labels:
+    {{- include "sample-secure-microservice.labels" . | nindent 4 }}
+data:
+  application.yml: |-
+    quarkus:
+      rest-client:
+        "com.example.remote.SampleRemoteService":
+          url: {{ .Values.extConfig.remoteServiceUrl }}
+{{- if not .Values.extConfig.oauth.enabled }}
+      oidc-client:
+        enabled: false
+      log:
+        console:
+          json: false
+      keycloak:
+        policy-enforcer:
+          enable: false
+      oidc:
+        enabled: false
+  {{- else if .Values.extConfig.oauth.enabled }}
+      oidc:
+        application-type: service
+        client-id: sample-first
+        credentials:
+        secret: JGd27inqpI0GrDukc1vyNu6GVKqh3KlX
+        auth-server-url: http://localhost:8180/realms/quarkus
+      http:
+        auth:
+        permission:
+          authenticated:
+          paths: /api/v1/sample*
+          policy: authenticated
+      oidc-client:
+        credentials:
+          secret: JGd27inqpI0GrDukc1vyNu6GVKqh3KlX
+        client-id: sample-first
+        grant:
+          type: client
+        enabled: true
+        early-tokens-acquisition: false
+        auth-server-url: http://localhost:8180/realms/quarkus
+    log:
+        console:
+          json: false
+    keycloak:
+        policy-enforcer:
+          enable: false
+  {{ end }}
+{{ end }}

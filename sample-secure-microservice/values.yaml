@@ -72,3 +72,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+extConfig:
+  enabled: true
+  oauth:
+    enabled: false
+  remoteServiceUrl: http://localhost:8080
