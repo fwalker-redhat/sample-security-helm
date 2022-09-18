@@ -11,44 +11,64 @@ data:
       rest-client:
         "com.example.remote.SampleRemoteService":
           url: {{ .Values.extConfig.remoteServiceUrl }}
-{{- if not .Values.extConfig.oauth.enabled }}
-      oidc-client:
-        enabled: false
       log:
         console:
-          json: false
+          json: false          
+{{- if not .Values.extConfig.security.oauth.enabled }}
+      oidc-client:
+        enabled: false
       keycloak:
         policy-enforcer:
           enable: false
       oidc:
         enabled: false
-  {{- else if .Values.extConfig.oauth.enabled }}
+{{- else if .Values.extConfig.security.oauth.enabled }}
       oidc:
         application-type: service
-        client-id: sample-first
+        client-id: {{ .Values.extConfig.security.oauth.clientId }}
         credentials:
-        secret: JGd27inqpI0GrDukc1vyNu6GVKqh3KlX
-        auth-server-url: http://localhost:8180/realms/quarkus
+          secret: {{ .Values.extConfig.security.oauth.clientSecret }}
+        auth-server-url: {{ .Values.extConfig.security.oauth.authServerUrl }}
       http:
         auth:
-        permission:
-          authenticated:
-          paths: /api/v1/sample*
-          policy: authenticated
+          permission:
+            authenticated:
+              paths: /api/v1/sample*
+              policy: authenticated
       oidc-client:
         credentials:
-          secret: JGd27inqpI0GrDukc1vyNu6GVKqh3KlX
-        client-id: sample-first
+          secret: {{ .Values.extConfig.security.oauth.clientSecret }}
+        client-id: {{ .Values.extConfig.security.oauth.clientId }}
         grant:
           type: client
         enabled: true
         early-tokens-acquisition: false
-        auth-server-url: http://localhost:8180/realms/quarkus
-    log:
-        console:
-          json: false
-    keycloak:
+        auth-server-url: {{ .Values.extConfig.security.oauth.authServerUrl }}
+      keycloak:
         policy-enforcer:
           enable: false
-  {{ end }}
+{{ end }}
+{{- if .Values.extConfig.security.basic.enabled }}
+      http:
+        auth:
+          permission:
+            authenticated:
+              paths: /api/v1/sample*
+              policy: authenticated
+      security:
+        users:
+          embedded:
+            enabled: true
+            plain-text: true
+            users:
+              admin: admin
+            roles:
+              admin: admin
+    org:
+      eclipse:
+        microprofile:
+          rest:
+            client:
+              propagateHeaders: Authorization
+{{ end }}              
 {{ end }}

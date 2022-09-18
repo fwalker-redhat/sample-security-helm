@@ -75,6 +75,15 @@ affinity: {}
 
 extConfig:
   enabled: true
-  oauth:
-    enabled: false
+  security:
+    oauth:
+      enabled: false
+      clientId: clientId
+      clientSecret: secret
+      authServerUrl: http://localhost:8081/realms/sample
+    basic:
+      enabled: true
+      username: admin
+      password: admin
+      roles: admin
   remoteServiceUrl: http://localhost:8080
