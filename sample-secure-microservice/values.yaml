@@ -24,6 +24,8 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+  # Add the following line for service-mesh sidecar injection
+  # sidecar.istio.io/inject: true
 
 podSecurityContext: {}
   # fsGroup: 2000

@@ -11,7 +11,7 @@ spec:
     name: {{ include "sample-secure-microservice.fullname" . }}
     weight: 100
   port:
-    targetPort: 8080-tcp
+    targetPort: http-8080
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect

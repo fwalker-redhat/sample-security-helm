@@ -36,6 +36,7 @@ data:
             authenticated:
               paths: {{ .Values.extConfig.security.authenticatedPaths }}
               policy: authenticated
+              enabled: true
       oidc-client:
         credentials:
           secret: {{ .Values.extConfig.security.oauth.clientSecret }}
@@ -56,6 +57,7 @@ data:
             authenticated:
               paths: {{ .Values.extConfig.security.authenticatedPaths }}
               policy: authenticated
+              enabled: true
       security:
         users:
           embedded:

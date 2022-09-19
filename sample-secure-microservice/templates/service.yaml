@@ -7,11 +7,11 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - name: 8080-tcp
+    - name: http-8080
       protocol: TCP
       port: 8080
       targetPort: 8080
-    - name: 8443-tcp
+    - name: https-8443
       protocol: TCP
       port: 8443
       targetPort: 8443

@@ -48,6 +48,8 @@ Selector labels
 {{- define "sample-secure-microservice.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "sample-secure-microservice.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app: {{ .Release.Name }}
+version: {{ .Chart.AppVersion }}
 {{- end }}
 
 {{/*
