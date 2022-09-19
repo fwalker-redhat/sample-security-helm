@@ -22,6 +22,7 @@ data:
           enable: false
       oidc:
         enabled: false
+        auth-server-url: http://nullhost
 {{- else if .Values.extConfig.security.oauth.enabled }}
       oidc:
         application-type: service
