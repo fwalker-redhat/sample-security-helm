@@ -33,7 +33,7 @@ data:
         auth:
           permission:
             authenticated:
-              paths: /api/v1/sample*
+              paths: {{ .Values.extConfig.security.authenticatedPaths }}
               policy: authenticated
       oidc-client:
         credentials:
@@ -53,7 +53,7 @@ data:
         auth:
           permission:
             authenticated:
-              paths: /api/v1/sample*
+              paths: {{ .Values.extConfig.security.authenticatedPaths }}
               policy: authenticated
       security:
         users:

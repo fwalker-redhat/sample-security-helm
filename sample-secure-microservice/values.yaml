@@ -8,7 +8,7 @@ image:
   repository: quay.io/fmwalker/tatra-sample-quarkus-sso
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  # tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -76,13 +76,14 @@ affinity: {}
 extConfig:
   enabled: true
   security:
+    authenticatedPaths: /api/v1/sample*
     oauth:
       enabled: false
       clientId: clientId
       clientSecret: secret
       authServerUrl: http://localhost:8081/realms/sample
     basic:
-      enabled: true
+      enabled: false
       username: admin
       password: admin
       roles: admin
